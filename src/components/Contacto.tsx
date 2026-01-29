@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState, useRef, type FormEvent } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface RedSocial {
     icono: string;
@@ -15,6 +16,11 @@ interface ContactoProps {
     formularioSubtitulo: string;
 }
 
+// Configuración EmailJS desde variables de entorno
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 function Contacto({ 
     titulo, 
     subtitulo, 
@@ -22,21 +28,37 @@ function Contacto({
     formularioTitulo, 
     formularioSubtitulo 
 }: ContactoProps) {
-    const [formData, setFormData] = useState({
-        nombre: '',
-        email: '',
-        mensaje: ''
-    });
+    const formRef = useRef<HTMLFormElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [messageLength, setMessageLength] = useState(0);
+    const MAX_MESSAGE_LENGTH = 3000;
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Formulario enviado:', formData);
-        // Aquí puedes agregar la lógica para enviar el formulario
-    };
+        
+        if (!formRef.current) return;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        try {
+            await emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                formRef.current,
+                EMAILJS_PUBLIC_KEY
+            );
+            
+            setSubmitStatus('success');
+            formRef.current.reset();
+            setMessageLength(0);
+        } catch (error) {
+            console.error('Error al enviar:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -64,39 +86,60 @@ function Contacto({
                 <h3 className="formulario-titulo">{formularioTitulo}</h3>
                 <p className="formulario-subtitulo">{formularioSubtitulo}</p>
                 
-                <form className="formulario" onSubmit={handleSubmit}>
+                <form className="formulario" ref={formRef} onSubmit={handleSubmit}>
                     <div className="formulario-row">
                         <input
                             type="text"
-                            name="nombre"
+                            name="from_name"
                             placeholder="Nombre"
-                            value={formData.nombre}
-                            onChange={handleChange}
                             className="formulario-input"
                             required
+                            disabled={isSubmitting}
                         />
                         <input
                             type="email"
-                            name="email"
+                            name="from_email"
                             placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
                             className="formulario-input"
                             required
+                            disabled={isSubmitting}
                         />
                     </div>
-                    <textarea
-                        name="mensaje"
-                        placeholder="Tu mensaje..."
-                        value={formData.mensaje}
-                        onChange={handleChange}
-                        className="formulario-textarea"
-                        rows={5}
-                        required
-                    />
-                    <button type="submit" className="btn btn-enviar">
-                        Enviar Mensaje
+                    <div className="textarea-container">
+                        <textarea
+                            name="message"
+                            placeholder="Tu mensaje..."
+                            className="formulario-textarea"
+                            rows={5}
+                            required
+                            disabled={isSubmitting}
+                            maxLength={MAX_MESSAGE_LENGTH}
+                            onChange={(e) => setMessageLength(e.target.value.length)}
+                        />
+                        <span className={`char-counter ${messageLength >= MAX_MESSAGE_LENGTH ? 'limit-reached' : ''}`}>
+                            {messageLength}/{MAX_MESSAGE_LENGTH}
+                        </span>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        className={`btn btn-enviar ${isSubmitting ? 'btn-loading' : ''}`}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
                     </button>
+
+                    {submitStatus === 'success' && (
+                        <p className="formulario-mensaje exito">
+                            ✅ ¡Mensaje enviado correctamente! Te responderé pronto.
+                        </p>
+                    )}
+                    
+                    {submitStatus === 'error' && (
+                        <p className="formulario-mensaje error">
+                            ❌ Hubo un error al enviar. Intenta nuevamente o contáctame por email.
+                        </p>
+                    )}
                 </form>
             </div>
         </section>
@@ -104,4 +147,3 @@ function Contacto({
 }
 
 export default Contacto;
-

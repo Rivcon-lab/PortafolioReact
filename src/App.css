@@ -480,11 +480,61 @@
 .formulario-textarea {
   resize: vertical;
   min-height: 120px;
+  width: 100%;
+}
+
+.textarea-container {
+  position: relative;
+  width: 100%;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 0.75rem;
+  color: #6a7c99;
+  background: #112240;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.char-counter.limit-reached {
+  color: #ff5252;
 }
 
 .btn-enviar {
   align-self: center;
   min-width: 200px;
+}
+
+.btn-enviar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-loading {
+  position: relative;
+}
+
+.formulario-mensaje {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.formulario-mensaje.exito {
+  background: rgba(100, 255, 218, 0.1);
+  border: 1px solid #64ffda;
+  color: #64ffda;
+}
+
+.formulario-mensaje.error {
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid #ff5252;
+  color: #ff5252;
 }
 
 /* ========================================
