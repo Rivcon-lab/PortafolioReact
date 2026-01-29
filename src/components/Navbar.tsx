@@ -1,12 +1,16 @@
 interface NavbarProps {
-    logo: string;
+    logoSrc?: string;
     enlaces: { texto: string; href: string }[];
 }
 
-export function Navbar({ logo, enlaces }: NavbarProps) {
+export function Navbar({ logoSrc, enlaces }: NavbarProps) {
     return (
         <nav className="navbar">
-            <div className="navbar-logo">{logo}</div>
+            {logoSrc && (
+                <a href="#inicio" className="navbar-logo">
+                    <img src={logoSrc} alt="Logo" />
+                </a>
+            )}
             <ul className="navbar-enlaces">
                 {enlaces.map((enlace, index) => (
                     <li key={index}>
@@ -17,3 +21,6 @@ export function Navbar({ logo, enlaces }: NavbarProps) {
         </nav>
     );
 }
+
+export default Navbar;
+

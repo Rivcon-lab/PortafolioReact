@@ -1,6 +1,6 @@
 interface BotonProps {
     texto: string;
-    accion: () => void;
+    href: string;
 }
 
 interface BannerProps {
@@ -10,7 +10,6 @@ interface BannerProps {
     textoResaltado?: string;
     botonPrimario: BotonProps;
     botonSecundario: BotonProps;
-    imagenPerfil?: string;
 }
 
 function Banner({
@@ -19,17 +18,10 @@ function Banner({
     descripcion,
     textoResaltado,
     botonPrimario,
-    botonSecundario,
-    imagenPerfil
+    botonSecundario
 }: BannerProps) {
     return (
         <header className="banner" id="inicio">
-            {imagenPerfil && (
-                <div className="banner-imagen">
-                    <img src={imagenPerfil} alt="Perfil" />
-                </div>
-            )}
-
             <div className="banner-contenido">
                 <h1>
                     <span className="nombre-destacado">{nombreDestacado}</span>
@@ -40,17 +32,28 @@ function Banner({
                 <p className="banner-descripcion">
                     {descripcion}
                     {textoResaltado && (
-                        <span className="texto-resaltado"> {textoResaltado}</span>
+                        <span className="texto-resaltado">{textoResaltado}</span>
                     )}
                 </p>
 
                 <div className="banner-botones">
-                    <button className="btn btn-primario" onClick={botonPrimario.accion}>
+                    <a 
+                        href={botonPrimario.href} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-primario"
+                    >
                         {botonPrimario.texto}
-                    </button>
-                    <button className="btn btn-secundario" onClick={botonSecundario.accion}>
+                    </a>
+                    <a 
+                        href={botonSecundario.href} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-secundario"
+                        download
+                    >
                         {botonSecundario.texto}
-                    </button>
+                    </a>
                 </div>
             </div>
         </header>
