@@ -1,0 +1,22 @@
+# Cloudflare Tunnel envía HTTP a Caddy; si usamos "rivcon.cl" sin http://
+# Caddy intenta HTTPS y redirige → bucle. Con http:// Caddy solo escucha HTTP
+# y no redirige; el usuario sigue viendo HTTPS por Cloudflare.
+
+# Redirigir www a sin www (SEO)
+http://www.rivcon.cl {
+    redir https://rivcon.cl{uri} permanent
+}
+
+# Sitio principal (solo HTTP aquí; Cloudflare da HTTPS al usuario)
+http://rivcon.cl {
+    root * /usr/share/caddy
+    file_server
+    encode gzip
+}
+
+# Acceso por IP desde otro PC en la red local
+:80 {
+    root * /usr/share/caddy
+    file_server
+    encode gzip
+}

@@ -1,13 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/assets/RCtransparente.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portafolio</title>
+    <meta name="theme-color" content="#0a192f" />
+
+    <!-- SEO primario -->
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>" />
+    <meta name="keywords" content="<%= keywords %>" />
+    <meta name="author" content="<%= author %>" />
+    <link rel="canonical" href="<%= canonical %>" />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= canonical %>" />
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="<%= description %>" />
+    <meta property="og:image" content="<%= ogImage %>" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:site_name" content="<%= siteName %>" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="<%= canonical %>" />
+    <meta name="twitter:title" content="<%= title %>" />
+    <meta name="twitter:description" content="<%= description %>" />
+    <meta name="twitter:image" content="<%= ogImage %>" />
+
+    <!-- Geo y audiencia Chile -->
+    <meta name="geo.region" content="CL" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Schema.org JSON-LD (rich results en Google) -->
+    <script type="application/ld+json"><%= schemaPerson %></script>
+    <script type="application/ld+json"><%= schemaWebSite %></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Google Analytics / GTM: pega aquí tu script cuando tengas la cuenta -->
+    <!-- Ej: <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
   </body>
 </html>

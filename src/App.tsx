@@ -26,7 +26,7 @@ function App() {
   const datosBanner = {
     nombreDestacado: 'Cristopher',
     nombreSecundario: 'Rivera Concha',
-    descripcion: 'Psicólogo Organizacional en transición a Desarrollador Python. Mi experiencia en gestión de personas y soporte TI me permite entender las ',
+    descripcion: 'Desarrollador Python, automatización de procesos y RPA. Mi experiencia en gestión de personas y soporte TI me permite entender las ',
     textoResaltado: 'problemáticas reales de los usuarios y crear soluciones que optimizan procesos, reduciendo tiempos de ejecución hasta en un 90%.',
     botonPrimario: {
       texto: 'Ver Proyectos',
@@ -42,9 +42,9 @@ function App() {
   const datosSobreMi = {
     titulo: 'Sobre Mí',
     parrafos: [
-      'Mi carrera comenzó en el mundo organizacional como Psicólogo, trabajando en reclutamiento y selección, capacitación, comunicaciones internas y gestión administrativa. Esta experiencia me permitió identificar procesos repetitivos que consumían tiempo valioso.',
-      'Durante un año y medio, mientras estudiaba, trabajé como Soporte TI N1 y N2 en Entel. La alta demanda de atención me llevó a buscar formas de optimizar el registro de tickets en ServiceNow, y fue ahí donde nació mi pasión por la automatización. Esa etapa fue clave para mi aprendizaje técnico.',
-      'Hoy combino mi comprensión del negocio con habilidades técnicas para crear herramientas que resuelven problemas reales. Estoy en búsqueda de oportunidades como trainee o junior para seguir creciendo en el mundo de la tecnología.'
+      'Mi carrera comenzó en el mundo organizacional como Psicólogo, trabajando en reclutamiento y selección, capacitación y gestión administrativa. Esa experiencia me permitió identificar procesos repetitivos que consumían tiempo valioso y que podían automatizarse.',
+      'Durante un año y medio trabajé como Soporte TI N1 y N2 en Entel. La alta demanda me llevó a automatizar el registro de tickets en ServiceNow con Python y Selenium; ahí nació mi foco en desarrollo Python y RPA.',
+      'Hoy me dedico al desarrollo en Python, automatización de procesos y RPA. Creo herramientas que reducen tiempos y errores. Busco oportunidades como trainee o junior en desarrollo de software y automatización.'
     ],
     experiencias: [
       {
@@ -287,7 +287,7 @@ function App() {
   // Datos del Footer
   const datosFooter = {
     nombre: 'Rivcon',
-    tecnologias: 'React + TypeScript + Vite',
+    tecnologias: 'Python · Automatización de procesos · RPA',
     año: 2026
   };
 
